@@ -1,0 +1,40 @@
+{
+  "pipeline": {
+    "displayName": "Demo_CTAS_SQL_20261001T084133Z",
+    "sourceJson": "05_ctas_sql.json",
+    "httpStatus": 201,
+    "response": {
+      "id": "fe322475-f535-4212-99ed-51889fbbf693",
+      "type": "DataPipeline",
+      "displayName": "Demo_CTAS_SQL_20261001T084133Z",
+      "description": "Demo proof from 05_ctas_sql.json",
+      "workspaceId": "e25cb526-ff7e-424f-8a79-8265bade11ee",
+      "logicalId": null
+    },
+    "id": "fe322475-f535-4212-99ed-51889fbbf693"
+  },
+  "run": {
+    "httpStatus": 202,
+    "location": "https://api.fabric.microsoft.com/v1/workspaces/e25cb526-ff7e-424f-8a79-8265bade11ee/items/fe322475-f535-4212-99ed-51889fbbf693/jobs/instances/c09d3de5-a1f0-44d0-8ce1-41ce86af09e2",
+    "body": "",
+    "jobStatus": "Completed",
+    "job": {
+      "id": "c09d3de5-a1f0-44d0-8ce1-41ce86af09e2",
+      "itemId": "fe322475-f535-4212-99ed-51889fbbf693",
+      "jobType": "Pipeline",
+      "invokeType": "Manual",
+      "status": "Completed",
+      "failureReason": null,
+      "rootActivityId": "129afd77-c40b-4ed4-8ca2-d12fa25936a0",
+      "startTimeUtc": "2026-10-01T08:41:42.76",
+      "endTimeUtc": "2026-10-01T08:42:27.8366667"
+    }
+  },
+  "activities": {
+    "httpStatus": 200,
+    "body": {
+      "value": [],
+      "continuationToken": null
+    }
+  }
+}

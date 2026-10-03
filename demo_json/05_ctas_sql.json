@@ -1,0 +1,84 @@
+{
+  "properties": {
+    "description": "CTAS test: publicholidays_test then JN from lakehouse into poc_wh",
+    "activities": [
+      {
+        "name": "Create_publicholidays_test",
+        "type": "Script",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "linkedService": {
+          "name": "poc_wh",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "zyxuxijmzw2u7cgojqnpgdc4ga-e22vzyt675hufctzqjs3vxqr5y.datawarehouse.fabric.microsoft.com",
+              "artifactId": "52cf33b6-2b10-4b53-a7d3-5b368730424e",
+              "workspaceId": "e25cb526-ff7e-424f-8a79-8265bade11ee"
+            }
+          }
+        },
+        "typeProperties": {
+          "scripts": [
+            {
+              "type": "NonQuery",
+              "text": {
+                "value": "DROP TABLE IF EXISTS dbo.publicholidays_test;\nCREATE TABLE dbo.publicholidays_test AS\nSELECT\n    countryOrRegion,\n    holidayName,\n    normalizeHolidayName,\n    isPaidTimeOff,\n    countryRegionCode,\n    date\nFROM migration_test_lakehouse.dbo.publicholidays\nWHERE date <= '2026-03-03';",
+                "type": "Expression"
+              }
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        }
+      },
+      {
+        "name": "Create_JN",
+        "type": "Script",
+        "dependsOn": [
+          {
+            "activity": "Create_publicholidays_test",
+            "dependencyConditions": ["Succeeded"]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "linkedService": {
+          "name": "poc_wh",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "zyxuxijmzw2u7cgojqnpgdc4ga-e22vzyt675hufctzqjs3vxqr5y.datawarehouse.fabric.microsoft.com",
+              "artifactId": "52cf33b6-2b10-4b53-a7d3-5b368730424e",
+              "workspaceId": "e25cb526-ff7e-424f-8a79-8265bade11ee"
+            }
+          }
+        },
+        "typeProperties": {
+          "scripts": [
+            {
+              "type": "NonQuery",
+              "text": {
+                "value": "DROP TABLE IF EXISTS dbo.JN;\nCREATE TABLE dbo.JN AS\nSELECT\n    countryOrRegion,\n    holidayName,\n    normalizeHolidayName,\n    isPaidTimeOff,\n    countryRegionCode,\n    date\nFROM migration_test_lakehouse.dbo.publicholidays;",
+                "type": "Expression"
+              }
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        }
+      }
+    ]
+  }
+}

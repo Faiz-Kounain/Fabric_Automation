@@ -1,0 +1,15 @@
+
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "Wait10Seconds",
+        "type": "Wait",
+        "dependsOn": [],
+        "typeProperties": {
+          "waitTimeInSeconds": 10
+        }
+      }
+    ]
+  }
+}
