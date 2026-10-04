@@ -6,7 +6,7 @@ import requests
 
 # Replace with your actual Fabric workspace ID
 workspace_id = "e25cb526-ff7e-424f-8a79-8265bade11ee"
-
+pipeline_id= "44ff5e56-81b5-4d08-989b-4de3e27d8405"
 print("Getting Azure token...")
 
 az_path = r"C:\Program Files\Microsoft SDKs\Azure\CLI2\wbin\az.cmd"
@@ -51,7 +51,8 @@ encoded_payload = base64.b64encode(
 # Fabric REST API endpoint
 url = (
     f"https://api.fabric.microsoft.com/v1/workspaces/"
-    f"{workspace_id}/dataPipelines"
+    f"{workspace_id}/dataPipelines/"
+    f"{pipeline_id}/updateDefinition"
 )
 
 headers = {
@@ -60,8 +61,8 @@ headers = {
 }
 
 body = {
-    "displayName": "VSCode_Auto_Pipeline",
-    "description": "Created from VS Code using Python",
+    # "displayName": "VSCode_Auto_Pipeline",
+    # "description": "Created from VS Code using Python",
     "definition": {
         "parts": [
             {
