@@ -1,0 +1,4 @@
+# Local connection settings (never commit)
+.env
+
+__pycache__/
