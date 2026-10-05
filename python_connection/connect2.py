@@ -1,17 +1,30 @@
-import os
 import struct
 import subprocess
 
+import keyring
 import pyodbc
-from dotenv import load_dotenv
+
+print(keyring.get_password("FABRIC_SQL_SERVER", "server"))
 
 AZ_PATH = r"C:\Program Files\Microsoft SDKs\Azure\CLI2\wbin\az.cmd"
 
-# Connection settings come from the .env file next to this script (not committed to Git)
-load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
+# Connection settings come from Windows Credential Manager (encrypted, not stored in the project)
+KEYRING_SERVICE = "fabric_poc"
 
-SERVER = os.environ["FABRIC_SQL_SERVER"]
-DATABASE = os.environ["FABRIC_SQL_DATABASE"]
+# print("Stored value:", keyring.get_password(KEYRING_SERVICE, "FABRIC_SQL_SERVER"))
+
+def get_setting(name):
+    value = keyring.get_password(KEYRING_SERVICE, name)
+    if value is None:
+        raise Exception(
+            f"'{name}' not found in Windows Credential Manager. Save it with:\n"
+            f"  python -c \"import keyring; keyring.set_password('{KEYRING_SERVICE}', '{name}', '<value>')\""
+        )
+    return value
+
+
+SERVER = get_setting("FABRIC_SQL_SERVER")
+DATABASE = get_setting("FABRIC_SQL_DATABASE")
 
 
 def get_sql_token():

@@ -1,18 +1,16 @@
-import os
+﻿import os
 import struct
 import subprocess
 
 import pyodbc
-from dotenv import load_dotenv
 
 AZ_PATH = r"C:\Program Files\Microsoft SDKs\Azure\CLI2\wbin\az.cmd"
 
-# Connection settings come from the .env file next to this script (not committed to Git)
-load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
-
+# Connection settings come from Windows user environment variables (not stored in the project)
 SERVER = os.environ["FABRIC_SQL_SERVER"]
 DATABASE = os.environ["FABRIC_SQL_DATABASE"]
-
+import os
+print(os.environ["FABRIC_SQL_SERVER"])
 
 def get_sql_token():
     result = subprocess.run(
